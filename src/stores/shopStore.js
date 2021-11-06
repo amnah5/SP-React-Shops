@@ -24,6 +24,18 @@ class ShopStore {
     }
   };
 
+  createProduct = async (shop, product) => {
+    try {
+      const formData = new FormData();
+      for (const key in product) {
+        formData.append(key, product[key]);
+      }
+      const res = await instance.post(`/shops/${shop._Id}/products`, formData);
+      // const shop = this.shops.find((shop) => shop._id === shopId);
+      shop.product.push(res.data);
+    } catch {}
+  };
+
   fetchShops = async () => {
     try {
       const response = await instance.get("/products");
